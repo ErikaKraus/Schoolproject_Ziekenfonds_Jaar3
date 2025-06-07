@@ -1,0 +1,80 @@
+﻿@model GroepsreisIngeschrevenReizenViewModel
+
+@{
+    ViewBag.Title = "Reisgeschiedenis";
+}
+
+<div class="container mt-4">
+    <h3>Reisgeschiedenis van jouw kind(eren)</h3>
+    @if (!Model.KinderenReizen.Any())
+    {
+        <p>Er zijn geen reizen waaraan uw kinderen deelnemen.</p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var kind in Model.KinderenReizen)
+            {
+                <div class="col-md-12 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-darkblue text-white">
+                            <h5>@kind.KindVoornaam @kind.KindNaam</h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Toekomstige reizen -->
+                            <h6><strong>Toekomstige Reizen:</strong></h6>
+                            @if (kind.ToekomstigeReizen.Any())
+                            {
+                                <ul class="list-group mb-3">
+                                    @foreach (var reis in kind.ToekomstigeReizen)
+                                    {
+                                        <li class="list-group-item">
+                                            <strong>@reis.BestemmingNaam</strong><br />
+                                            Data: @reis.Begindatum.ToString("dd/MM/yyyy") - @reis.Einddatum.ToString("dd/MM/yyyy")
+                                            <div>
+                                                <a asp-action="Detail" asp-controller="Groepsreis" asp-route-id="@reis.Id" class="btn btn-primary text-white btn-sm">
+                                                    Details
+                                                </a>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p>@kind.KindVoornaam is niet ingeschreven voor een toekomstige groepsreis.</p>
+                            }
+                            <hr />
+                            <!-- Afgelopen reizen -->
+                            <h6>
+                                <strong>Afgelopen Reizen:</strong>
+                            </h6>
+                            @if (kind.AfgelopenReizen.Any())
+                            {
+                                <ul class="list-group list-group-flush">
+                                    @foreach (var reis in kind.AfgelopenReizen)
+                                    {
+                                        <li class="list-group-item">
+                                            <strong>@reis.BestemmingNaam</strong><br />
+                                            Data: @reis.Begindatum.ToString("dd/MM/yyyy") - @reis.Einddatum.ToString("dd/MM/yyyy")
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p>@kind.KindVoornaam heeft nog geen groepsreis achter de rug.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <div>
+        <a asp-action="GoToDashboard" class="btn btn-outline-secondary mt-3">Terug</a>
+    </div>
+</div>
+
+

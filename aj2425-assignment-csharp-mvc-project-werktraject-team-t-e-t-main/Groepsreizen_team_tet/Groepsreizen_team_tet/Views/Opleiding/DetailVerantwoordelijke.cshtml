@@ -1,0 +1,53 @@
+﻿@model OpleidingDetailVerantwoordelijkeViewModel
+@{
+    ViewBag.Title = Model.Naam;
+}
+
+<h3>Opleidingsdetails: @Model.Naam</h3>
+
+<div class="d-flex justify-content-end mb-3">
+        <a asp-action="Beheer" class="btn btn-outline-secondary">Terug</a>
+</div>
+
+<div class="d-flex align-items-start mt-4">
+    <div class="me-4">
+        <img src="data:image/png;base64,@Convert.ToBase64String(Model.Afbeelding)" alt="Foto van @Model.Naam" class="afbeeldingOpleiding" />
+    </div>
+    <div>
+        <div>
+            <h4>Beschrijving</h4>
+            <p>@Model.Beschrijving</p>
+        </div>
+
+        <div>
+            <h4>Locatie</h4>
+            <p>@Model.Locatie</p>
+        </div>
+
+        <div>
+            <h4>Data</h4>
+            <p><strong>Begindatum:</strong> @Model.Begindatum.ToString("dd-MM-yyyy")</p>
+            <p><strong>Einddatum:</strong> @Model.Einddatum.ToString("dd-MM-yyyy")</p>
+        </div>
+
+        <div>
+            <h4>Beschikbare plaatsen</h4>
+            <p>@Model.BeschikbarePlaatsen / @Model.AantalPlaatsen</p>
+        </div>
+
+        <div>
+            <h4>Vereiste vooropleiding</h4>
+            <p>@Model.Vooropleiding</p>
+        </div>
+        <div>
+            <h4>Monitoren</h4>
+            <a asp-action="IngeschrevenMonitoren" asp-route-id="@Model.Id" class="btn btn-info">
+                <i class="fa fa-user-tie"></i> Ingeschreven monitoren
+            </a>
+            <a asp-action="MonitorToevoegen" asp-route-id="@Model.Id" class="btn btn-success">
+                <i class="fa fa-plus"></i> 
+                Monitor toevoegen
+            </a>
+        </div>
+    </div>
+</div>
