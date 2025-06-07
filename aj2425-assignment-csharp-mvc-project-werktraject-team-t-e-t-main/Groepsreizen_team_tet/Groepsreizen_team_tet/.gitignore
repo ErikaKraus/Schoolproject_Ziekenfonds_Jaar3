@@ -10,7 +10,7 @@
 ./**/appsettings.json
 
 # secrets
-appsettings.secrets.json
+appsettings.secret.json
 
 # User-specific files
 *.rsuser
